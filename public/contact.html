@@ -102,7 +102,7 @@ async function sendMessage() {
     const subject = document.getElementById("subject").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    const res = await fetch("/api/messages", {
+    const res = await fetch(`${API}/api/messages`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, subject, message })

@@ -1,3 +1,4 @@
+const API = "https://backend-final-75pr.onrender.com/";
 async function loadMenu() {
     const res = await fetch("/api/menu");
     const data = await res.json();

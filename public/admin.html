@@ -132,7 +132,7 @@ function logout(){
 /* CREATE CATEGORY */
 async function createCategory(){
 
- const res = await fetch("/api/categories",{
+ const res = await fetch(`${API}/api/categories`,{
    method:"POST",
    headers:{
      "Content-Type":"application/json",
@@ -155,7 +155,7 @@ async function createCategory(){
 async function addItem(){
 
  try{
-   const res = await fetch("/api/menu",{
+   const res = await fetch(`${API}/api/menu`,{
      method:"POST",
      headers:{
        "Content-Type":"application/json",
@@ -184,7 +184,7 @@ async function addItem(){
 /* LOAD MESSAGES */
 async function loadMessages(){
 
- const res = await fetch("/api/messages");
+ const res = await fetch(`${API}/api/messages`);
  const messages = await res.json();
 
  const box = document.getElementById("messagesList");
@@ -241,7 +241,7 @@ async function loadMessages(){
 
 /* MARK MESSAGE READ */
 async function markRead(id){
- await fetch(`/api/messages/${id}/read`,{method:"PATCH"});
+ await fetch(`${API}/api/messages/${id}/read`,{method:"PATCH"});
  loadMessages();
 }
 
@@ -250,14 +250,14 @@ async function deleteMessage(id){
 
  if(!confirm("Delete message?")) return;
 
- await fetch(`/api/messages/${id}`,{method:"DELETE"});
+ await fetch(`${API}/api/messages/${id}`,{method:"DELETE"});
  loadMessages();
 }
 
 /* LOAD RESERVATIONS */
 async function loadReservations(){
 
- const res = await fetch("/api/reservations");
+ const res = await fetch(`${API}/api/reservations`);
  const reservations = await res.json();
 
  const box=document.getElementById("reservationsList");
@@ -300,7 +300,7 @@ async function deleteReservation(id){
 
  if(!confirm("Cancel reservation?")) return;
 
- await fetch(`/api/reservations/${id}`,{method:"DELETE"});
+ await fetch(`${API}/api/reservations/${id}`, {method:"DELETE"});
  loadReservations();
 }
 

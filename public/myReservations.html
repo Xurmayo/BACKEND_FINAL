@@ -42,7 +42,7 @@ if (!token) {
 
 async function loadReservations(){
 
- const res = await fetch("/api/reservations/my",{
+ const res = await fetch(`${API}/api/reservations/my`,{
    headers:{ Authorization:`Bearer ${token}` }
  });
 
@@ -80,7 +80,7 @@ async function deleteReservation(id){
 
  if(!confirm("Cancel this reservation?")) return;
 
- await fetch(`/api/reservations/my/${id}`,{
+ await fetch(`${API}/api/reservations/${id}`,{
    method:"DELETE",
    headers:{ Authorization:`Bearer ${token}` }
  });
