@@ -131,8 +131,9 @@ Route	Description:
 ### Roles Summary
 ```
 Role	Permissions
-User	Browse menu, make reservations, send messages
-Admin	Full CRUD, dashboard access
+
+User:	Browse menu, make reservations, send messages
+Admin:	Full CRUD, dashboard access
 ```
 ## Testing
 ```
@@ -149,9 +150,7 @@ JWT stored in localStorage on frontend
 Admin UI is hidden for non-admin users
 ```
 
-## Author
-
-## Amangeldi Alisher
+## Author: Amangeldi Alisher
 ## Astana IT University
 ## Final Backend Project
 
