@@ -93,7 +93,7 @@ BACKEND_FINAL/
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env` file in the root:
 ```
@@ -119,7 +119,7 @@ Server runs on:
 http://localhost:5000
 ```
 
-##API Base Routes
+## API Base Routes
 Route	Description:
 ```
 /api/auth	Auth (login/register)
