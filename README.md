@@ -1,130 +1,158 @@
-## Assignment 4 – Restaurant API
+# A La Pierre - Restaurant Management System
 
-## Project Description
-This project is a RESTful Restaurant API built with Node.js, Express, and MongoDB.  
-It follows the MVC (Model–View–Controller) architecture and implements authentication,
-authorization, and Role-Based Access Control (RBAC) using JWT and bcrypt.The API allows managing restaurant menu categories and menu items with secure access rules.
+A full-stack restaurant management backend built with Node.js, Express, and MongoDB, designed for a modern Italian restaurant.  
+This project powers authentication, menu management, reservations, contact messages, and admin moderation.
 
 ---
 
-## Technologies Used
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JSON Web Tokens (JWT)
-- bcrypt
-- Postman (API testing)
+## Features
+
+### Authentication & Roles
+- User registration & login (JWT-based)
+- Role-based access (`user`, `admin`)
+- Protected routes
+- Admin-only dashboard features
 
 ---
 
-## Project Structure (MVC)
-models/
-controllers/
-routes/
-middleware/
-config/
-app.js
-server.js
+### Menu Management
+- Categories (Create / View)
+- Menu items with:
+  - Name
+  - Description
+  - Price
+  - Image URL
+  - Category reference
+- Admin-only create/update/delete
 
-``` 
+---
 
-- models/ – Mongoose schemas
-- controllers/ – Business logic
-- routes/ – API endpoints
-- middleware/ – Authentication & authorization
-- config/ – Database connection
+### Reservations
+- Users can reserve tables
+- Time validation (only **10:00 – 24:00**)
+- Prevents double booking for the same time slot
+- Users can:
+  - View **their own reservations**
+  - Delete **only their reservations**
+- Admin can view all reservations
+
+---
+
+### Contact Messages
+- Contact form connected to MongoDB
+- Stores:
+  - Name
+  - Email
+  - Subject
+  - Message
+  - Status (`unread`, `read`)
+- Admin dashboard:
+  - View recent messages
+  - Mark as read
+  - Delete responded messages
+
+---
+
+### Admin Dashboard
+- Create categories
+- Add menu items
+- View & manage messages
+- Role-protected access
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|------|------------|
+| Backend | Node.js, Express |
+| Database | MongoDB + Mongoose |
+| Auth | JWT |
+| Frontend | HTML, CSS, Bootstrap |
+| API Style | REST |
+| Tools | Postman, MongoDB Compass |
+
+---
+
+##  Project Structure
 
 ```
----
-
-## Objects in the System
-
-## 1. User
-Fields:
-- email
-- password (hashed)
-- role (`user` or `admin`)
-
-Used for authentication and authorization.
-
----
-
-## 2. Category (Secondary Object)
-Represents menu categories.
-
-CRUD Operations:
-- Create (admin only)
-- Read (public)
-- Update (admin only)
-- Delete (admin only)
-
----
-
-## 3. MenuItem (Primary Object)
-Represents food items in the menu.
-
-Fields:
-- name
-- price
-- description
-- category (reference to Category)
-
-CRUD Operations:
-- Create (admin only)
-- Read (public)
-- Update (admin only)
-- Delete (admin only)
-
----
-
-## Authentication & RBAC
-
-- Passwords are hashed using bcrypt
-- JWT is used for authentication
-- Public access: GET routes
-- Protected access: POST, PUT, DELETE
-- Only users with role admin can modify data
-
----
-
-## API Endpoints (Examples)
-
-### Auth
-- POST `/api/auth/register`
-- POST `/api/auth/login`
-
-## Categories
-- GET `/api/categories`
-- POST `/api/categories` (admin)
-- PUT `/api/categories/:id` (admin)
-- DELETE `/api/categories/:id` (admin)
-
-## Menu Items
-- GET `/api/menu`
-- POST `/api/menu` (admin)
-- PUT `/api/menu/:id` (admin)
-- DELETE `/api/menu/:id` (admin)
-
----
-
-## How to Run the Project?
-
-1. Install dependencies:
+BACKEND_FINAL/
+├── config/ # DB connection
+├── controllers/ # Business logic
+├── middleware/ # Auth, role, error handlers
+├── models/ # Mongoose schemas
+├── routes/ # API routes
+├── public/ # Frontend (HTML/CSS/JS)
+├── app.js # Express app
+├── server.js # Server entry point
+├── package.json
+└── README.md
 ```
-npm install
-```
-Create .env:
+
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the root:
 ```
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/restaurant-api
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 ```
 
-Start server
+
+---
+
+## Run Locally
 
 ```
+npm install
 npm run dev
 
 ```
-Author:
-Assignment 4 – Web / Backend Development - Amangeldi Alisher
+
+Server runs on:
+
+```
+http://localhost:5000
+```
+
+##API Base Routes
+Route	Description:
+```
+/api/auth	Auth (login/register)
+/api/categories	Categories
+/api/menu	Menu items
+/api/reservations	Reservations
+/api/messages	Contact messages
+```
+### Roles Summary
+```
+Role	Permissions
+User	Browse menu, make reservations, send messages
+Admin	Full CRUD, dashboard access
+```
+## Testing
+```
+API tested using Postman
+
+Database inspected via MongoDB Compass
+```
+### Notes
+```
+.env and node_modules are ignored via .gitignore
+
+JWT stored in localStorage on frontend
+
+Admin UI is hidden for non-admin users
+```
+
+Author
+
+Amangeldi Alisher
+Astana IT University
+Final Backend Project
+
+
