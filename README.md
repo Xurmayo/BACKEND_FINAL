@@ -149,10 +149,10 @@ JWT stored in localStorage on frontend
 Admin UI is hidden for non-admin users
 ```
 
-###Author
+## Author
 
-###Amangeldi Alisher
-###Astana IT University
-###Final Backend Project
+## Amangeldi Alisher
+## Astana IT University
+## Final Backend Project
 
 
