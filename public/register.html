@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>A La Pierre — Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f7f5f2;
+}
+
+/* NAVBAR */
+.red-nav {
+    background: #8b0000;
+}
+
+.brand-title {
+    font-family: "Playfair Display", serif;
+}
+
+/* HERO */
+.hero-small {
+    height: 35vh;
+    background:
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+        url("https://images.unsplash.com/photo-1600891964599-f61ba0e24092");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* CARD */
+.register-card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.1);
+}
+
+/* FOOTER */
+.red-footer {
+    background: #8b0000;
+}
+
+</style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark red-nav shadow-sm">
+<div class="container">
+    <a class="navbar-brand brand-title" href="index.html">🍽️ A La Pierre</a>
+
+    <div class="ms-auto d-flex gap-3">
+        <a class="nav-link text-white" href="index.html">Home</a>
+        <a class="nav-link text-white" href="login.html">Login</a>
+        <a class="nav-link text-white" href="admin.html">Admin</a>
+    </div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-small">
+<div>
+    <h1 class="display-5 fw-bold">Join A La Pierre</h1>
+    <p class="lead">Create your account to enjoy exclusive dining features</p>
+</div>
+</section>
+
+<!-- REGISTER FORM -->
+<section class="py-5">
+<div class="container d-flex justify-content-center">
+
+<div class="card register-card p-4 col-md-5">
+
+<h3 class="text-center mb-4">Create Account</h3>
+
+<div class="mb-3">
+    <label class="form-label">Email</label>
+    <input id="email" class="form-control" placeholder="Enter email">
+</div>
+
+<div class="mb-4 position-relative">
+    <label class="form-label">Password</label>
+    <input id="password" type="password" class="form-control" placeholder="Enter password">
+
+    <!-- Show Password Button -->
+    <i class="bi bi-eye position-absolute"
+       style="right:15px; top:38px; cursor:pointer;"
+       onclick="togglePassword()"></i>
+</div>
+
+<button onclick="register()" class="btn btn-danger w-100 rounded-pill">
+    <i class="bi bi-person-plus"></i> Register
+</button>
+
+<p class="text-center mt-3 small">
+    Already have an account?
+    <a href="login.html">Login</a>
+</p>
+
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="red-footer text-white mt-auto">
+<div class="container d-flex justify-content-between align-items-center py-3 small">
+    <div>A La Pierre</div>
+    <div>© 2026 Amangeldi Alisher</div>
+</div>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+
+function togglePassword() {
+    const input = document.getElementById("password");
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+async function register() {
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+
+        const res = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email,
+                password,
+                role: "user"
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message || "Registration failed");
+            return;
+        }
+
+        alert("Registration successful!");
+        window.location.href = "login.html";
+
+    } catch (error) {
+        alert("Server error");
+    }
+}
+
+</script>
+
+</body>
+</html>

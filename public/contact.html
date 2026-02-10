@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A La Pierre — Contact</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+  background: #f7f5f2;
+}
+
+.red-nav {
+  background: #8b0000;
+}
+
+.hero {
+  min-height: 50vh;
+  background:
+    linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)),
+    url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  border-radius: 16px;
+}
+
+.red-footer {
+  background: #8b0000;
+}
+</style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAV -->
+<nav class="navbar navbar-dark red-nav">
+  <div class="container d-flex justify-content-between">
+    <span class="navbar-brand">🍽️ A La Pierre</span>
+    <a href="index.html" class="btn btn-outline-light">🏠 Home</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Get in Touch</h1>
+    <p class="lead">We would love to hear from you</p>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card p-4 shadow-sm">
+        <h4 class="mb-3">Send us a Message</h4>
+
+        <!-- FORM -->
+        <form id="contactForm" onsubmit="event.preventDefault(); sendMessage();">
+
+          <input id="name" class="form-control mb-2" placeholder="Your name" required>
+          <input id="email" class="form-control mb-2" placeholder="Email" required>
+          <input id="subject" class="form-control mb-2" placeholder="Subject" required>
+          <textarea id="message" class="form-control mb-3" rows="4" placeholder="Message" required></textarea>
+
+          <button type="submit" class="btn btn-danger w-100 rounded-pill">
+            ✉️ Send Message
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="red-footer text-white mt-auto">
+  <div class="container text-center py-3 small">
+    © 2026 A La Pierre Restaurant
+  </div>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+async function sendMessage() {
+  try {
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    const res = await fetch("/api/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, subject, message })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.error || "Server error");
+
+    alert("Message sent successfully!");
+
+    document.getElementById("contactForm").reset();
+
+  } catch (err) {
+    alert(err.message || "Failed to send message");
+    console.error(err);
+  }
+}
+</script>
+
+</body>
+</html>
