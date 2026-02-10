@@ -186,12 +186,14 @@ function fallbackImage() {
 }
 
 async function loadMenu() {
-  const res = await fetch(`${API}/api/menu`);
+
+  const res = await fetch("/api/menu");
   const items = await res.json();
 
   menuContainer.innerHTML = "";
 
   items.forEach(item => {
+
     const col = document.createElement("div");
     col.className = "col-11 col-sm-6 col-md-4";
 
