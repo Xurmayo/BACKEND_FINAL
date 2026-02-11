@@ -10,6 +10,8 @@ const generateToken = (id, role) => {
 // REGISTER
 exports.registerUser = async (req, res) => {
   try {
+    console.log("REGISTER BODY:", req.body);
+
     const { email, password, role } = req.body;
 
     const exists = await User.findOne({ email });
@@ -21,28 +23,40 @@ exports.registerUser = async (req, res) => {
     res.status(201).json({
       token: generateToken(user._id, user.role)
     });
+
   } catch (err) {
+    console.error("REGISTER ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 };
 
+
 // LOGIN
 exports.loginUser = async (req, res) => {
   try {
+    console.log("LOGIN BODY:", req.body);
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+    console.log("USER FOUND:", user);
+
     if (!user)
       return res.status(401).json({ message: "Invalid credentials" });
 
     const match = await user.matchPassword(password);
+    console.log("PASSWORD MATCH:", match);
+
     if (!match)
       return res.status(401).json({ message: "Invalid credentials" });
 
     res.json({
       token: generateToken(user._id, user.role)
     });
+
   } catch (err) {
+    console.error("LOGIN ERROR:", err);
     res.status(500).json({ error: err.message });
   }
 };
+
